@@ -17,12 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.shortcuts import render
+
 from main_page.views import index
+from user_page.views import private_area, private_area_order
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
-    path('lk/', render, kwargs={'template_name': 'lk.html'}, name='personal_area'),
-    path('lk-order/', render, kwargs={'template_name': 'lk-order.html'}, name='personal_area_order'),
+    path('lk/', private_area),
+    path('lk-order/', private_area_order),
 ]
