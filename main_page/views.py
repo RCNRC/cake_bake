@@ -18,7 +18,7 @@ def index(request):
         return redirect('lk-order')
     try:
         user = User.objects.get(phonenumber=phonenumber)
-        print(user.firstname)
+        return render(request, 'index.html')
     except User.DoesNotExist:
         return redirect('lk')
 
