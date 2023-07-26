@@ -25,6 +25,6 @@ from user_page.views import private_area, private_area_order
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
-    path('lk/', private_area),
-    path('lk-order/', private_area_order),
+    path('lk/', private_area, name='lk'),
+    path('lk-order/', private_area_order, name='lk-order'),
 ]
