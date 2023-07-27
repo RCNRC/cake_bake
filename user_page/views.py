@@ -8,10 +8,8 @@ def private_area(request):
 
 
 def private_area_order(request, phonenumber=None):
-    # TODO аналогично
     try:
         user = User.objects.get(phonenumber=phonenumber)
-        print(user.orders.all())
         context = {
             'user': user,
             'orders': user.orders.all(),

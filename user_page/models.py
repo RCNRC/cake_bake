@@ -82,3 +82,27 @@ class Order(models.Model):
 
     def cost(self):
         return self.cake.cost()
+
+
+class SenderURL(models.Model):
+    url = models.TextField(
+        verbose_name='url',
+        db_index=True,
+        unique=True,
+    )
+
+    def count(self):
+        return self.requests.length()
+
+
+class RecievedRequest(models.Model):
+    sender_url = models.ForeignKey(
+        SenderURL,
+        on_delete=models.CASCADE,
+        verbose_name='url отправителя',
+        related_name='requests',
+    )
+    date = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='дата запроса',
+    )

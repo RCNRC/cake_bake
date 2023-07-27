@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect
 from django.db import transaction
-from user_page.models import User, Cake, Order
+from user_page.models import User, Cake, Order, RecievedRequest, SenderURL
 from django.core.exceptions import ObjectDoesNotExist
 
 
 @transaction.atomic
 def index(request):
+    sender_url = request.META.get('HTTP_REFERER')
+    if sender_url:
+        sender, _ = SenderURL.objects.get_or_create(url=sender_url)
+        RecievedRequest.objects.create(sender_url=sender)
     if not request.GET:  # если ничего не вводится на странице, то остаемся на ней
         return render(request, 'index.html')
     phonenumber = request.GET.get('REG', '')  # проверка введен ли номер в регистрации
