@@ -14,14 +14,11 @@ from pathlib import Path
 import os
 from environs import Env
 
-
 env = Env()
 env.read_env()
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -33,8 +30,48 @@ SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
+LEVELS = [(1, 'один'), (2, 'два'), (3, 'три')]
+FORMS = [(1, 'круг'), (2, 'квадрат'), (3, 'прямоугольник')]
+TOPPINGS = [(1, 'без'), (2, 'белый'), (3, 'карамельный'), (4, 'кленовый'),
+            (5, 'черничный'), (6, 'молочный шоколад'), (7, 'клубничный')]
+BERRIES = [(1, 'ежевика'), (2, 'малина'), (3, 'голубика'), (4, 'клубника')]
+DECORS = [(1, 'фисташки'), (2, 'безе'), (3, 'фундук'), (4, 'пекан'),
+         (5, 'маршмеллоу'), (6, 'марципан')]
+COST = {
+    'levels': {
+        1: 400,
+        2: 750,
+        3: 1100,
+    },
+    'form': {
+        1: 400,
+        2: 600,
+        3: 100,
+    },
+    'topping': {
+        1: 0,
+        2: 200,
+        3: 180,
+        4: 200,
+        5: 350,
+        6: 200,
+        7: 300,
+    },
+    'berries': {
+        1: 400,
+        2: 300,
+        3: 450,
+        4: 500,
+    },
+    'decor': {
+        1: 300,
+        2: 400,
+        3: 350,
+        4: 300,
+        5: 200,
+        6: 280,
+    },
+}
 # Application definition
 
 INSTALLED_APPS = [
@@ -80,7 +117,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'cake_bake.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -90,7 +126,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -110,7 +145,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -121,7 +155,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
