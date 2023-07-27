@@ -9,7 +9,7 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Cake)
 class CakeAdmin(admin.ModelAdmin):
-    list_display = ['user', 'cost']
+    list_display = ['words', 'cost']
 
 
 @admin.register(Order)

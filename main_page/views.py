@@ -39,16 +39,23 @@ def index(request):
         time = request.GET['TIME']
         comments = request.GET['COMMENTS']
         delivcomments = request.GET['DELIVCOMMENTS']
-        user = User.objects.create(firstname=firstname, phonenumber=phonenumber, email=email)
+        print(phonenumber)
+        user, _ = User.objects.get_or_create(phonenumber=phonenumber)
+        if not user:
+            print('\nAAA\n')
+            return render(request, 'index.html')
+        user.firstname = firstname
+        user.email = email
+        user.save()
         cake = Cake.objects.create(
-            user=user, levels=levels, form=form, topping=topping, berries=berries, decor=decor, words=words,
+            levels=levels, form=form, topping=topping, berries=berries, decor=decor, words=words,
         )
         Order.objects.create(
-            cake=cake, address=address, date=date, time=time, comments=comments, delivcomments=delivcomments,
+            cake=cake, user=user, address=address, date=date, time=time, comments=comments, delivcomments=delivcomments,
         )
-        return redirect(f'lk-order/{phone}')
+        return redirect(f'lk-order/{phonenumber}/')
     try:  # если телефон в чердаке введен и клиент существует перенаправляем на страницу заказа
         User.objects.get(phonenumber=phonenumber)
-        return redirect(f'lk-order/{phone}')
+        return redirect(f'lk-order/{phonenumber}/')
     except ObjectDoesNotExist:  # если телефон в чердаке введен и клиент не существует перенаправляем на страницу лк для дпльнейшей  регистрации
         return redirect('lk')

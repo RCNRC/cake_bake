@@ -23,9 +23,6 @@ class User(models.Model):
 
 
 class Cake(models.Model):
-    user = models.ForeignKey(
-        User, verbose_name='заказчик', related_name='cakes', on_delete=models.CASCADE,
-    )
     levels = models.PositiveSmallIntegerField(verbose_name='количество уровней', choices=settings.LEVELS, default=1)
     form = models.PositiveSmallIntegerField(verbose_name='форма', choices=settings.FORMS, default=1)
     topping = models.PositiveSmallIntegerField(verbose_name='топпинг', choices=settings.TOPPINGS, default=1)
@@ -43,7 +40,7 @@ class Cake(models.Model):
         return cost
 
     def __str__(self):
-        return f'заказчик: {self.user}, цена: {self.cost()}'
+        return f'{self.words}, цена: {self.cost()}'
 
 
 class Order(models.Model):
@@ -57,7 +54,7 @@ class Order(models.Model):
         (WAIT_COURIER, 'Ожидание курьера'),
         (CLOSED, 'Завершён'),
     ]
-    
+
     cake = models.ForeignKey(
         Cake, verbose_name='торт', related_name='orders', on_delete=models.CASCADE,
     )
