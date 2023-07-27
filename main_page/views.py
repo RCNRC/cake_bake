@@ -9,9 +9,24 @@ def index(request):
     if not request.GET:  # если ничего не вводится на странице, то остаемся на ней
         return render(request, 'index.html')
     phonenumber = request.GET.get('REG', '')  # проверка введен ли номер в регистрации
-    if not phonenumber:  # если нет то создаем нового клиента в базе из данных в заказе
+    phone = ''
+    for litera in phonenumber:
+        try:
+            int(litera)
+            phone+=litera
+        except ValueError:
+            continue
+    if not phone:  # если нет то создаем нового клиента в базе из данных в заказе
         firstname = request.GET['NAME']
         phonenumber = request.GET['PHONE']
+        phone = ''
+        for litera in phonenumber:
+            try:
+                int(litera)
+                phone += litera
+            except ValueError:
+                continue
+        print(type(phonenumber))
         email = request.GET['EMAIL']
         levels = request.GET['LEVELS']
         form = request.GET['FORM']
@@ -31,9 +46,9 @@ def index(request):
         Order.objects.create(
             cake=cake, address=address, date=date, time=time, comments=comments, delivcomments=delivcomments,
         )
-        return redirect(f'lk-order/{phonenumber}')
+        return redirect(f'lk-order/{phone}')
     try:  # если телефон в чердаке введен и клиент существует перенаправляем на страницу заказа
         User.objects.get(phonenumber=phonenumber)
-        return redirect(f'lk-order/{phonenumber}')
+        return redirect(f'lk-order/{phone}')
     except ObjectDoesNotExist:  # если телефон в чердаке введен и клиент не существует перенаправляем на страницу лк для дпльнейшей  регистрации
         return redirect('lk')
