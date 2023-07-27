@@ -41,3 +41,28 @@ class Cake(models.Model):
         if self.words:
             cost += 500
         return cost
+
+    def __str__(self):
+        return f'заказчик: {self.user}, цена: {self.cost()}'
+
+
+class Order(models.Model):
+    cake = models.ForeignKey(
+        Cake, verbose_name='торт', related_name='orders', on_delete=models.CASCADE,
+    )
+
+    address = models.CharField(verbose_name='адрес', max_length=300)
+    date = models.DateField(verbose_name='дата доставки')
+    time = models.TimeField(verbose_name='время доставки')
+    comments = models.TextField(verbose_name='комментарии к заказу', blank=True)
+    delivcomments = models.TextField(verbose_name='комментарии к доставке', blank=True)
+
+    def cost(self):
+        cake = self.cake
+        return cake.cost()
+
+
+    def user(self):
+        cake = self.cake
+        return cake.user
+
