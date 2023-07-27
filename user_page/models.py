@@ -47,8 +47,34 @@ class Cake(models.Model):
 
 
 class Order(models.Model):
+    WAIT_MANAGER = 'WM'
+    WAIT_RESTAURANT = 'WR'
+    WAIT_COURIER = 'WC'
+    CLOSED = 'CL'
+    STATUSES = [
+        (WAIT_MANAGER, 'Необработанный'),
+        (WAIT_RESTAURANT, 'Ожидание рестарана'),
+        (WAIT_COURIER, 'Ожидание курьера'),
+        (CLOSED, 'Завершён'),
+    ]
+    
     cake = models.ForeignKey(
         Cake, verbose_name='торт', related_name='orders', on_delete=models.CASCADE,
+    )
+    user = models.ForeignKey(
+        User,
+        verbose_name='заказчик',
+        related_name='orders',
+        on_delete=models.CASCADE,
+        null=True,
+    )
+
+    status = models.CharField(
+        verbose_name='статус',
+        max_length=2,
+        choices=STATUSES,
+        default=WAIT_MANAGER,
+        db_index=True,
     )
 
     address = models.CharField(verbose_name='адрес', max_length=300)
@@ -58,11 +84,4 @@ class Order(models.Model):
     delivcomments = models.TextField(verbose_name='комментарии к доставке', blank=True)
 
     def cost(self):
-        cake = self.cake
-        return cake.cost()
-
-
-    def user(self):
-        cake = self.cake
-        return cake.user
-
+        return self.cake.cost()

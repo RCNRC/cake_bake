@@ -23,8 +23,8 @@ from user_page.views import private_area, private_area_order
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index),
+    path('', index, name='main'),
     path('lk/', private_area, name='lk'),
     path('lk-order/', private_area_order, name='lk-order'),
-    re_path(r'^lk-order/\d+/', private_area_order, name='lk-phone'),
+    re_path(r'^lk-order/(?P<phonenumber>((\+7)|8)\d{10})/', private_area_order, name='lk-phone'),
 ]

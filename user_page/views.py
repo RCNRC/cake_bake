@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import User
 
 
 def private_area(request):
@@ -6,6 +7,15 @@ def private_area(request):
     return render(request, 'lk.html')
 
 
-def private_area_order(request):
+def private_area_order(request, phonenumber=None):
     # TODO аналогично
-    return render(request, 'lk-order.html')
+    try:
+        user = User.objects.get(phonenumber=phonenumber)
+        print(user.orders.all())
+        context = {
+            'user': user,
+            'orders': user.orders.all(),
+        }
+        return render(request, 'lk-order.html', context=context)
+    except User.DoesNotExist:
+        return redirect('main')
