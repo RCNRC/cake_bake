@@ -15,23 +15,11 @@ def index(request):
     if not request.GET:  # если ничего не вводится на странице, то остаемся на ней
         return render(request, 'index.html')
     phonenumber = request.GET.get('REG', '')  # проверка введен ли номер в регистрации
-    phone = ''
-    for litera in phonenumber:
-        try:
-            int(litera)
-            phone += litera
-        except ValueError:
-            continue
-    if not phone:  # если нет то создаем нового клиента в базе из данных в заказе
+    if not phonenumber:  # если нет то создаем нового клиента в базе из данных в заказе
         firstname = request.GET['NAME']
         phonenumber = request.GET['PHONE']
-        phone = ''
-        for litera in phonenumber:
-            try:
-                int(litera)
-                phone += litera
-            except ValueError:
-                continue
+        if phonenumber[0] == '8':
+            phonenumber = '+7' + phonenumber[1:]
         email = request.GET['EMAIL']
         levels = request.GET['LEVELS']
         form = request.GET['FORM']
@@ -63,6 +51,8 @@ def index(request):
         url = ''.join((url.scheme, '://', url.netloc, url.path))
         return pay(cake_id, url)
     try:  # если телефон в чердаке введен и клиент существует перенаправляем на страницу заказа
+        if phonenumber[0] == '8':
+            phonenumber = '+7' + phonenumber[1:]
         User.objects.get(phonenumber=phonenumber)
         return redirect(f'lk-order/{phonenumber}/')
     except ObjectDoesNotExist:  # если телефон в чердаке введен и клиент не существует перенаправляем на страницу лк
