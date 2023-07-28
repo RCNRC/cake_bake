@@ -47,7 +47,6 @@ def index(request):
         time = request.GET['TIME']
         comments = request.GET['COMMENTS']
         delivcomments = request.GET['DELIVCOMMENTS']
-        print(phonenumber)
         user, _ = User.objects.get_or_create(phonenumber=phonenumber)
         if not user:
             print('\nAAA\n')
@@ -58,7 +57,6 @@ def index(request):
         cake = Cake.objects.create(
             levels=levels, form=form, topping=topping, berries=berries, decor=decor, words=words,
         )
-        # cake.save()
         cake_id = cake.id
         Order.objects.create(
             cake=cake, user=user, address=address, date=date, time=time, comments=comments, delivcomments=delivcomments,
