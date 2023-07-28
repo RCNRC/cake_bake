@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 from phonenumber_field.modelfields import PhoneNumberField
 from cake_bake import settings
 from cake_bake.settings import COST
@@ -82,3 +83,27 @@ class Order(models.Model):
 
     def cost(self):
         return self.cake.cost()
+
+
+class SenderURL(models.Model):
+    url = models.TextField(
+        verbose_name='url',
+        db_index=True,
+        unique=True,
+    )
+
+    def count(self):
+        return len(self.requests.all())
+
+
+class RecievedRequest(models.Model):
+    sender_url = models.ForeignKey(
+        SenderURL,
+        on_delete=models.CASCADE,
+        verbose_name='url отправителя',
+        related_name='requests',
+    )
+    date = models.DateTimeField(
+        default=datetime.now,
+        verbose_name='дата запроса',
+    )
