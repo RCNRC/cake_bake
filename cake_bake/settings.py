@@ -27,8 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env.str('SECRET_KEY')
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-YK_ID = env('YOOKASSA_ID', '235939') # удалить после переноса в .env
-YK_SK = env('YOOKASSA_KEY', 'test_TXai1jcW9-xQ2-IhInmIr8y8QSj9uXyDaPaAcCXVT9A') # удалить после переноса в .env
+YK_ID = env('YOOKASSA_ID') # удалить после переноса в .env
+YK_SK = env('YOOKASSA_KEY') # удалить после переноса в .env
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG', False)

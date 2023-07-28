@@ -64,7 +64,7 @@ def index(request):
         return pay(cake_id, url)
     try:  # если телефон в чердаке введен и клиент существует перенаправляем на страницу заказа
         User.objects.get(phonenumber=phonenumber)
-        return redirect(f'lk-order/{phone}/')
+        return redirect(f'lk-order/{phonenumber}/')
     except ObjectDoesNotExist:  # если телефон в чердаке введен и клиент не существует перенаправляем на страницу лк
         # для дпльнейшей  регистрации
         return redirect('lk')
