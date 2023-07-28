@@ -24,8 +24,10 @@ class RecievedRequestInline(admin.TabularInline):
 
 @admin.register(SenderURL)
 class SenderURLAdmin(admin.ModelAdmin):
-    fields = ['url']
-    list_display = ['url']
+    readonly_fields = ['count']
+    fields = ['url', 'count']
+    list_display = ['url', 'count']
+    search_fields = ['url']
     inlines = [
         RecievedRequestInline,
     ]

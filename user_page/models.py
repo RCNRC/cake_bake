@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 from phonenumber_field.modelfields import PhoneNumberField
 from cake_bake import settings
 from cake_bake.settings import COST
@@ -92,7 +93,7 @@ class SenderURL(models.Model):
     )
 
     def count(self):
-        return self.requests.length()
+        return len(self.requests.all())
 
 
 class RecievedRequest(models.Model):
@@ -103,6 +104,6 @@ class RecievedRequest(models.Model):
         related_name='requests',
     )
     date = models.DateTimeField(
-        auto_now_add=True,
+        default=datetime.now,
         verbose_name='дата запроса',
     )
