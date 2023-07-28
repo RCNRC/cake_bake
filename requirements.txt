@@ -3,3 +3,4 @@ Jinja2==3.1.2
 environs==9.5.0
 django-phonenumber-field==7.1.0
 phonenumberslite==8.13.17
+yookassa~=2.4.0

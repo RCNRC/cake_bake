@@ -25,9 +25,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str('SECRET_KEY')
+YK_ID = env('YOOKASSA_ID', '235939')
+YK_SK = env('YOOKASSA_KEY', 'test_TXai1jcW9-xQ2-IhInmIr8y8QSj9uXyDaPaAcCXVT9A')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG', False)
 
 ALLOWED_HOSTS = []
 LEVELS = [(1, 'один'), (2, 'два'), (3, 'три')]

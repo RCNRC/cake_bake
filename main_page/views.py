@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.db import transaction
 from user_page.models import User, Cake, Order
 from django.core.exceptions import ObjectDoesNotExist
+from funcs import pay
+from urllib.parse import urlparse
 
 
 @transaction.atomic
@@ -13,9 +15,12 @@ def index(request):
     for litera in phonenumber:
         try:
             int(litera)
-            phone+=litera
+            phone += litera
         except ValueError:
             continue
+        url = request.build_absolute_uri()
+        url = urlparse(url)
+        url = ''.join((url.netloc, url.path))
     if not phone:  # если нет то создаем нового клиента в базе из данных в заказе
         firstname = request.GET['NAME']
         phonenumber = request.GET['PHONE']
@@ -26,7 +31,6 @@ def index(request):
                 phone += litera
             except ValueError:
                 continue
-        print(type(phonenumber))
         email = request.GET['EMAIL']
         levels = request.GET['LEVELS']
         form = request.GET['FORM']
@@ -50,12 +54,18 @@ def index(request):
         cake = Cake.objects.create(
             levels=levels, form=form, topping=topping, berries=berries, decor=decor, words=words,
         )
+        # cake.save()
+        cake_id = cake.id
         Order.objects.create(
             cake=cake, user=user, address=address, date=date, time=time, comments=comments, delivcomments=delivcomments,
         )
-        return redirect(f'lk-order/{phonenumber}/')
+        url = request.build_absolute_uri()
+        url = urlparse(url)
+        url = ''.join((url.scheme, '://', url.netloc, url.path))
+        return pay(cake_id, url)
     try:  # если телефон в чердаке введен и клиент существует перенаправляем на страницу заказа
         User.objects.get(phonenumber=phonenumber)
-        return redirect(f'lk-order/{phonenumber}/')
-    except ObjectDoesNotExist:  # если телефон в чердаке введен и клиент не существует перенаправляем на страницу лк для дпльнейшей  регистрации
+        return redirect(f'lk-order/{phone}/')
+    except ObjectDoesNotExist:  # если телефон в чердаке введен и клиент не существует перенаправляем на страницу лк
+        # для дпльнейшей  регистрации
         return redirect('lk')
