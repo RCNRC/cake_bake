@@ -22,9 +22,6 @@ def index(request):
             phone += litera
         except ValueError:
             continue
-        url = request.build_absolute_uri()
-        url = urlparse(url)
-        url = ''.join((url.netloc, url.path))
     if not phone:  # если нет то создаем нового клиента в базе из данных в заказе
         firstname = request.GET['NAME']
         phonenumber = request.GET['PHONE']
