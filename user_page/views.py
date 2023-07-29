@@ -9,6 +9,8 @@ def private_area(request):
 
 def private_area_order(request, phonenumber=None):
     try:
+        if phonenumber and phonenumber[0] == '8':
+            phonenumber = '+7' + phonenumber[1:]
         user = User.objects.get(phonenumber=phonenumber)
         context = {
             'user': user,
