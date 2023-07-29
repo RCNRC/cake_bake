@@ -14,9 +14,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls')
 """
+import os.path
+
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, re_path
 
+from cake_bake import settings
 from main_page.views import index
 from user_page.views import private_area, private_area_order
 
@@ -27,4 +31,4 @@ urlpatterns = [
     path('lk/', private_area, name='lk'),
     path('lk-order/', private_area_order, name='lk-order'),
     re_path(r'^lk-order/(?P<phonenumber>((\+7)|8)\d{10})/', private_area_order, name='lk-phone'),
-]
+] + static('/frontend/', document_root=os.path.join(settings.BASE_DIR, 'frontend'))

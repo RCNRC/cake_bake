@@ -389,11 +389,23 @@
 								<div class="d-flex">
 									<span class="cake_pink fs_40 fw-bold me-2">Итого: [[ Cost ]]₽</span>
 								</div>
-								<button type="submit" class="btn btn_hover text-white rounded-pill mt-3 px-5 shadow-none cake__button cake__bg_pink">К оплате</button>
+								<input type="checkbox" id="politics" onclick="check();" value="" autocomplete="off"/>
+								Нажимая на кнопку "К оплате", я даю <a href="/frontend/concord.html">согласие на обработку персональных данных.</a>
+								<button type="submit" name="submit" class="btn btn_hover text-white rounded-pill mt-3 px-5 shadow-none cake__button cake__bg_pink" disabled="">К оплате</button>
+
 							</div>
 						</div>
 					</div>
 				</v-form>
+				<script>
+					function check() {
+					var submit = document.getElementsByName('submit')[0];
+					if (document.getElementById('politics').checked)
+					submit.disabled = '';
+					else
+					submit.disabled = 'disabled';
+					}
+				</script>
 			</section>
 		</article>
 	</div>
