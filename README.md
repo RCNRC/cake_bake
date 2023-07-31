@@ -1,5 +1,7 @@
 # cake_bake
 
+Проект представляет собой сайт по закзу тортов, [пример работающего сайта](https://testserverdvmn.pythonanywhere.com/).
+
 ## Установка
 
 Требуется [Python](https://www.python.org/downloads/) версии 3.7 или выше и установленный [pip](https://pip.pypa.io/en/stable/getting-started/). Для установки необходимых зависимостей используйте команду:  
