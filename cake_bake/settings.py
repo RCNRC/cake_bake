@@ -31,9 +31,9 @@ YK_ID = env('YOOKASSA_ID') # удалить после переноса в .env
 YK_SK = env('YOOKASSA_KEY') # удалить после переноса в .env
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG', False)
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['testserverdvmn.pythonanywhere.com']
 LEVELS = [(1, 'один'), (2, 'два'), (3, 'три')]
 FORMS = [(1, 'круг'), (2, 'квадрат'), (3, 'прямоугольник')]
 TOPPINGS = [(1, 'без'), (2, 'белый'), (3, 'карамельный'), (4, 'кленовый'),
@@ -163,7 +163,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'frontend',
 ]

@@ -21,7 +21,7 @@ from django.contrib import admin
 from django.urls import path, re_path
 
 from cake_bake import settings
-from main_page.views import index
+from main_page.views import index, license
 from user_page.views import private_area, private_area_order
 
 
@@ -31,4 +31,5 @@ urlpatterns = [
     path('lk/', private_area, name='lk'),
     path('lk-order/', private_area_order, name='lk-order'),
     re_path(r'^lk-order/(?P<phonenumber>((\+7)|8)\d{10})/', private_area_order, name='lk-phone'),
+    path('license/', license, name='license'),
 ] + static('/frontend/', document_root=os.path.join(settings.BASE_DIR, 'frontend'))

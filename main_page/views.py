@@ -58,3 +58,7 @@ def index(request):
     except ObjectDoesNotExist:  # если телефон в чердаке введен и клиент не существует перенаправляем на страницу лк
         # для дпльнейшей  регистрации
         return redirect('lk')
+
+
+def license(request):
+    return render(request, 'concord.html')
